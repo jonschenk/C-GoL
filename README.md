@@ -6,3 +6,6 @@ Massive shout-out to Eric Steinhart's explaination/tutorial video, I used it to 
     - Typescript project
     - "Game"
     - NodeJS project
+
+Began project: 02-13-2024
+Finished project: (Still in progress)
