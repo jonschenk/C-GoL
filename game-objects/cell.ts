@@ -1,6 +1,7 @@
 // @author: jonschenk (https://github.com/jonschenk)
 
 class Cell {
+  private speed: 1000;
   private neighbors: { [key: string]: Cell | null };
   private _isAlive: boolean;
 
@@ -18,6 +19,7 @@ class Cell {
       
     // Assign the row and column and status of the cell
     this._isAlive = false;
+    this.tick();
   }
 
 
@@ -91,12 +93,37 @@ class Cell {
     return count;
   }
 
-  // TODO: Implement this method
-  // canLive(): boolean {
-  //   let numNeighbors = this.numNeighbors();
 
-  //   if()
-  // }
+  /**
+   * Defines whether or not the cell can live.
+   */
+  updateStatus() {
+    let numNeighbors = this.numNeighbors();
+
+    if (this.getStatus()) {
+      if(numNeighbors === 2 || numNeighbors === 3) {
+        this.setStatus(true);
+      }
+      else {
+        this.setStatus(false);
+      }
+    }
+    else {
+      if(numNeighbors === 3) {
+        this.setStatus(true);
+      }
+      else {
+        this.setStatus(false);
+      }
+    }
+  }
+
+  /**
+   * Updates the cell's status based on its neighbors.
+   */
+  tick() {
+     setInterval(this.updateStatus, this.speed);
+  }
 }
 
 export default Cell; // Export the Cell class

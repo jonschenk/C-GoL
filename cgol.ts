@@ -4,8 +4,6 @@ import Grid from "./game-objects/grid";
 
 
 class Game {
-    private speed: number = 500;
-
     constructor() {
         // Create a new grid
         let grid: Grid = new Grid();
@@ -13,10 +11,6 @@ class Game {
         // Generate the grid
         grid.generate();
 
-        this.testing(grid);
-
-        // Testing
-        setInterval(() => this.updateGrid(grid), this.speed);
     }
     
 
