@@ -2,15 +2,15 @@
 
 import Grid from "./game-objects/grid";
 
-
 class Game {
+    private gameSpeed = 500; // default game speed
     constructor() {
         // Create a new grid
         let grid: Grid = new Grid();
         
         // Generate the grid
         grid.generate();
-
+        setInterval(() => this.updateGrid(grid), this.gameSpeed);
     }
     
 
@@ -42,12 +42,12 @@ class Game {
 
                 // Set the cell's background color based on its status
                 cell.style.backgroundColor = grid.getCell(i, j)?.getStatus() ? 'black' : 'white';
+                grid.getCell(i, j)?.updateStatus();
 
                 cell.addEventListener('click', () => {
                     grid.getCell(i, j)?.toggleState();
                     cell.style.backgroundColor = grid.getCell(i, j)?.getStatus() ? 'black' : 'white';
                 });
-
                 row.appendChild(cell);
             }
 
@@ -60,26 +60,12 @@ class Game {
 
     testing(grid: Grid | null) {
         let cell = grid?.getCell(0, 0);
-
-        let cell2 = grid?.getCell(5, 2);
-
         cell?.setStatus(true);
-        cell2?.setStatus(true);
 
         cell?.getNeighbor("down")?.setStatus(true);
         cell?.getNeighbor("downright")?.setStatus(true);
-
-        cell2?.getNeighbor("upleft")?.setStatus(true);
-
-        console.log(grid?.toString());
-
-        let result = cell?.numNeighbors();
-
-        console.log(result); // should be 2
-
-        console.log("run completeeee!")
+        cell?.getNeighbor("right")?.setStatus(true);
     }
 }
-
 
 new Game();

@@ -1,12 +1,11 @@
 // @author: jonschenk (https://github.com/jonschenk)
 
 class Cell {
-  private speed: 1000;
   private neighbors: { [key: string]: Cell | null };
   private _isAlive: boolean;
 
   constructor() {
-    this.neighbors = {
+      this.neighbors = {
       up: null,
       down: null,
       left: null,
@@ -19,7 +18,6 @@ class Cell {
       
     // Assign the row and column and status of the cell
     this._isAlive = false;
-    this.tick();
   }
 
 
@@ -117,13 +115,5 @@ class Cell {
       }
     }
   }
-
-  /**
-   * Updates the cell's status based on its neighbors.
-   */
-  tick() {
-     setInterval(this.updateStatus, this.speed);
-  }
 }
-
 export default Cell; // Export the Cell class
