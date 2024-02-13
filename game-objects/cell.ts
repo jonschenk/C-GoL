@@ -34,6 +34,16 @@ class Cell {
   }
 
 
+   /**
+   * The aliveness of the cell.
+   * 
+   * @returns Whether or not the cell is alive
+   */
+   setStatus(status: boolean) {
+    this._isAlive = status;
+  }
+
+
   /**
    * Gets the neighboring cell in the specified direction.
    * 
