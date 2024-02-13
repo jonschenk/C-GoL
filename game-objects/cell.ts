@@ -1,25 +1,23 @@
 // @author: jonschenk (https://github.com/jonschenk)
 
-interface Neighbors {
-  _up: Cell | null;
-  _left: Cell | null;
-  _right: Cell | null;
-  _down: Cell | null;
-  _upleft: Cell | null;
-  _upright: Cell | null;
-  _downleft: Cell | null;
-  _downright: Cell | null;
-}
-
-
 /**
  * The cell class
  */
 class Cell {
+  private neighbors: { [key: string]: Cell | null };
   private _isAlive: boolean;
-  private neighbors: Neighbors;
 
-  constructor(row: number, col: number) {
+  constructor() {
+    this.neighbors = {
+      up: null,
+      down: null,
+      left: null,
+      right: null,
+      upleft: null,
+      upright: null,
+      downleft: null,
+      downright: null
+  };
       
     // Assign the row and column and status of the cell
     this._isAlive = false;

@@ -7,26 +7,23 @@ let _cols = 10; // default value for cols
 
 
 class Grid {
-    constructor(rows: number, cols: number) {
-        _rows = rows;
-        _cols = cols;
-    }
+    private grid: Cell[][];
 
     /**
      * Generates the grid of cells
      */
-    generateGrid(): void{
-        let grid: Cell[][] = []; //initialize grid
+    generate(): void{
+        this.grid = []; //initialize grid
 
         // loop through the rows
         for (let i = 0; i < _rows; i++) {
-            grid[i] = []; // initialize the row
+            this.grid[i] = []; // initialize the row
             for (let j = 0; j < _cols; j++) {
-                grid[i][j] = new Cell(i, j); // create a new cell and add it to the grid
+                this.grid[i][j] = new Cell(); // create a new cell and add it to the grid
             }
         }
 
-        this.assignNeighbors(grid); // assign the neighbors to each cell
+        this.assignNeighbors(this.grid); // assign the neighbors to each cell
     }
 
 
@@ -113,6 +110,20 @@ class Grid {
      */
     setCols(cols: number) {
         _cols = cols;
+    }
+
+
+    toString(): string {
+        let gridRepresentation = "";
+        for (let i = 0; i < _rows; i++) {
+            for (let j = 0; j < _cols; j++) {
+                const cell = this.getCell(i, j, this.grid); // Change this line
+                gridRepresentation += cell && cell.getStatus() ? "X" : "O";
+            }
+            gridRepresentation += "\n";
+        }
+
+        return gridRepresentation;
     }
 }
 
