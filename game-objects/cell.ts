@@ -42,6 +42,14 @@ class Cell {
 
 
   /**
+   * Toggles the state of the cell.
+   */
+  toggleState() {
+    this._isAlive = !this._isAlive;
+  }
+
+
+  /**
    * Gets the neighboring cell in the specified direction.
    * 
    * @param {*} dir The direction of the neighbor

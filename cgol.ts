@@ -33,6 +33,8 @@ class Game {
         const table = document.createElement('table');
         table.style.borderCollapse = 'collapse';
 
+        const squareSize = Math.floor(gridDiv.clientWidth / cols) / 5;
+
         for (let i = 0; i < rows; i++) {
             const row = document.createElement('tr');
 
@@ -40,26 +42,22 @@ class Game {
                 const cell = document.createElement('td');
 
                 // Style the cell as a square
-                cell.style.width = '20px';
-                cell.style.height = '20px';
+                cell.style.width = `${squareSize}px`;
+                cell.style.height = `${squareSize}px`;
                 cell.style.border = '1px solid black';
 
                 // Set the cell's background color based on its status
                 cell.style.backgroundColor = grid.getCell(i, j)?.getStatus() ? 'black' : 'white';
 
+                cell.addEventListener('click', () => {
+                    grid.getCell(i, j)?.toggleState();
+                    cell.style.backgroundColor = grid.getCell(i, j)?.getStatus() ? 'black' : 'white';
+                });
+
                 row.appendChild(cell);
             }
 
             table.appendChild(row);
-        }
-
-        //TESTING
-        let cell = grid?.getCell(0, 0);
-        if (cell?.getStatus() === true) {
-            cell.setStatus(false);
-        }
-        else {
-            cell?.setStatus(true);
         }
 
         gridDiv.appendChild(table);
