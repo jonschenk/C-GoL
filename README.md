@@ -1,11 +1,18 @@
-## A browser implementation of [Conway's Game of Life](https://www.youtube.com/watch?v=ouipbDkwHWA) ##
+# Conway's Game of Life
 
-Massive shout-out to Eric Steinhart's explaination/tutorial video, I used it to learn all the rules of the game.
+This project is a browser implementation of [Conway's Game of Life](https://www.youtube.com/watch?v=ouipbDkwHWA).
 
-### This is my first ever: ###
-    - Typescript project
-    - "Game"
-    - NodeJS project
+A massive shout-out to Eric Steinhart's explanation/tutorial video, which I used to learn all the rules of the game.
 
-Began project: 02-13-2024
-Finished project: (Still in progress)
+## Project Milestones
+
+This project represents several firsts for me:
+
+- My first TypeScript project
+- My first "Game"
+- My first NodeJS project
+
+## Project Timeline
+
+- Project start date: 02-13-2024
+- Project end date: Still in progress
