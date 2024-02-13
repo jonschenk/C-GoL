@@ -2,12 +2,18 @@
 
 import Cell from "./cell";
 
-let _rows = 10; // default value for rows
-let _cols = 10; // default value for cols
-
-
 class Grid {
+    private rows: number;
+    private cols: number;
+
     private grid: Cell[][];
+
+    constructor(rows: number, cols: number) {
+        this.grid = Array(rows).fill(null).map(() => Array(cols).fill(null));
+        this.rows = rows;
+        this.cols = cols;
+
+    }
 
     /**
      * Generates the grid of cells
@@ -16,9 +22,9 @@ class Grid {
         this.grid = []; //initialize grid
 
         // loop through the rows
-        for (let i = 0; i < _rows; i++) {
+        for (let i = 0; i < this.rows; i++) {
             this.grid[i] = []; // initialize the row
-            for (let j = 0; j < _cols; j++) {
+            for (let j = 0; j < this.cols; j++) {
                 this.grid[i][j] = new Cell(); // create a new cell and add it to the grid
             }
         }
@@ -37,8 +43,8 @@ class Grid {
     assignNeighbors(grid: Cell[][]): Cell[][] {
 
         // loop through the rows
-        for (let i = 0; i < _rows; i++) {
-            for (let j = 0; j < _cols; j++) {
+        for (let i = 0; i < this.rows; i++) {
+            for (let j = 0; j < this.cols; j++) {
                 let cell = grid[i][j]; // get the current cell
                 cell.setNeighbor("up", this.getCell(i - 1, j));
                 cell.setNeighbor("down", this.getCell(i + 1, j));
@@ -63,12 +69,8 @@ class Grid {
      * @param grid // the grid of cells
      * @returns The cell at the specified row and column
      */
-    getCell(row: number, col: number): Cell | null {
-        if (row >= 0 && row < this.grid.length && col >= 0 && col < (this.grid[row] ? this.grid[row].length : 0)) {
-            return this.grid[row][col];
-        } else {
-            return null;
-        }
+    getCell(row: number, col: number): Cell {
+        return this.grid[row][col];
     }
 
 
@@ -78,7 +80,7 @@ class Grid {
      * @returns The number of rows in the grid
      */
     getRows(): number {
-        return _rows;
+        return this.rows;
     }
 
 
@@ -88,7 +90,7 @@ class Grid {
      * @returns The number of columns in the grid
      */
     getCols(): number {
-        return _cols;
+        return this.cols;
     }
 
 
@@ -98,7 +100,7 @@ class Grid {
      * @param rows // the number of rows
      */
     setRows(rows: number) {
-        _rows = rows;
+        this.rows = rows;
     }
 
 
@@ -108,14 +110,23 @@ class Grid {
      * @param cols // the number of columns
      */
     setCols(cols: number) {
-        _cols = cols;
+        this.cols = cols;
+    }
+
+
+    forEachCell(action: (cell: Cell) => void) {
+        for (let i = 0; i < this.rows; i++) {
+            for (let j = 0; j < this.cols; j++) {
+                action(this.getCell(i, j));
+            }
+        }
     }
 
 
     toString(): string {
         let gridRepresentation = "";
-        for (let i = 0; i < _rows; i++) {
-            for (let j = 0; j < _cols; j++) {
+        for (let i = 0; i < this.rows; i++) {
+            for (let j = 0; j < this.cols; j++) {
                 const cell = this.getCell(i, j); // Change this line
                 gridRepresentation += cell && cell.getStatus() ? "X" : "O";
             }

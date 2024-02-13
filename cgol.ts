@@ -3,14 +3,19 @@
 import Grid from "./game-objects/grid";
 
 class Game {
-    private gameSpeed = 500; // default game speed
+    private gameSpeed = 2000; // default game speed
     constructor() {
         // Create a new grid
-        let grid: Grid = new Grid();
+        let grid: Grid = new Grid(10, 10);
         
         // Generate the grid
         grid.generate();
-        setInterval(() => this.updateGrid(grid), this.gameSpeed);
+        this.testing(grid);
+        this.updateGrid(grid);
+        setInterval(() => {
+            grid.forEachCell((cell) => cell.updateStatus());
+            this.updateGrid(grid);
+        }, this.gameSpeed);
     }
     
 
@@ -29,10 +34,10 @@ class Game {
 
         const squareSize = Math.floor(gridDiv.clientWidth / cols) / 5;
 
-        for (let i = 0; i < rows; i++) {
+        for (let i = 0; i < rows - 1; i++) {
             const row = document.createElement('tr');
 
-            for (let j = 0; j < cols; j++) {
+            for (let j = 0; j < cols - 1; j++) {
                 const cell = document.createElement('td');
 
                 // Style the cell as a square
@@ -53,18 +58,28 @@ class Game {
 
             table.appendChild(row);
         }
+        let cell3 = grid?.getCell(3, 3); // TEMP
+        console.log(cell3?.getStatus()); // TEMP
+
 
         gridDiv.appendChild(table);
     }
 
 
     testing(grid: Grid | null) {
-        let cell = grid?.getCell(0, 0);
+        let cell = grid?.getCell(2, 2);
+        let cell1 = grid?.getCell(3, 2);
+        let cell2 = grid?.getCell(4, 2);
+        let cell3 = grid?.getCell(3, 3);
+        
         cell?.setStatus(true);
+        cell1?.setStatus(true);
+        cell2?.setStatus(true);
+        let num = cell3?.numNeighbors();
 
-        cell?.getNeighbor("down")?.setStatus(true);
-        cell?.getNeighbor("downright")?.setStatus(true);
-        cell?.getNeighbor("right")?.setStatus(true);
+        console.log(num);
+
+        console.log(cell3?.getStatus());
     }
 }
 

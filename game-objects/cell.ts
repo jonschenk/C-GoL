@@ -83,7 +83,7 @@ class Cell {
     let count = 0;
     for (let direction in this.neighbors) {
       let neighbor = this.neighbors[direction];
-      if (neighbor && neighbor.getStatus()) {
+      if (neighbor?.getStatus()) {
         count ++;
       }
     }
@@ -98,22 +98,13 @@ class Cell {
   updateStatus() {
     let numNeighbors = this.numNeighbors();
 
-    if (this.getStatus()) {
-      if(numNeighbors === 2 || numNeighbors === 3) {
-        this.setStatus(true);
-      }
-      else {
-        this.setStatus(false);
-      }
-    }
+    if (this._isAlive) {
+      this._isAlive = numNeighbors === 2 || numNeighbors === 3;
+    } 
     else {
-      if(numNeighbors === 3) {
-        this.setStatus(true);
-      }
-      else {
-        this.setStatus(false);
-      }
+      this._isAlive = numNeighbors === 3;
     }
   }
 }
+
 export default Cell; // Export the Cell class

@@ -19,7 +19,7 @@ This project represents several firsts for me:
 
 ## TODO:
 
-- ~~Implement gameplay logic~~
+- Implement gameplay logic
 - ~~Gameplay clock~~
 - ~~Toggleable cells~~
 - ~~Create game GUI~~
