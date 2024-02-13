@@ -16,3 +16,10 @@ This project represents several firsts for me:
 
 - Project start date: 02-13-2024
 - Project end date: Still in progress
+
+## TODO:
+
+- Implement gameplay logic
+- Create game GUI
+- Increase grid size
+- Make pretty
