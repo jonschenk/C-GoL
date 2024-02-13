@@ -20,6 +20,9 @@ This project represents several firsts for me:
 ## TODO:
 
 - Implement gameplay logic
-- Create game GUI
+- ~~Gameplay clock~~
+- ~~Toggleable cells~~
+- ~~Create game GUI~~
 - Increase grid size
+- Add Custom Settings
 - Make pretty
