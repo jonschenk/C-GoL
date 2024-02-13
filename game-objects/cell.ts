@@ -90,6 +90,13 @@ class Cell {
 
     return count;
   }
+
+  // TODO: Implement this method
+  // canLive(): boolean {
+  //   let numNeighbors = this.numNeighbors();
+
+  //   if()
+  // }
 }
 
 export default Cell; // Export the Cell class

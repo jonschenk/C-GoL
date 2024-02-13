@@ -1,8 +1,8 @@
 # Conway's Game of Life
 
-This project is a browser implementation of [Conway's Game of Life](https://www.youtube.com/watch?v=ouipbDkwHWA).
+This project is a browser implementation of [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
 
-A massive shout-out to Eric Steinhart's explanation/tutorial video, which I used to learn all the rules of the game.
+A massive shout-out to Eric Steinhart's [explanation/tutorial video](https://www.youtube.com/watch?v=ouipbDkwHWA), which I used to learn all the rules of the game.
 
 ## Project Milestones
 
