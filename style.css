@@ -29,19 +29,9 @@ body {
   margin-top: 0px;
 }
 
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(10, 40px); /* Adjust the number of columns and size as needed */
-    gap: 1px;
-  }
-
-  .grid-item {
-    width: 40px;
-    height: 40px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-  }
-
-  .grid-item.active {
-    background-color: #000000; /* Change the color for active squares */
-  }
+.grid {
+  padding-top: 2.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
