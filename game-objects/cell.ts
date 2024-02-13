@@ -1,8 +1,5 @@
 // @author: jonschenk (https://github.com/jonschenk)
 
-/**
- * The cell class
- */
 class Cell {
   private neighbors: { [key: string]: Cell | null };
   private _isAlive: boolean;

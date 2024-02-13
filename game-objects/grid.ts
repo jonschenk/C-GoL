@@ -40,14 +40,14 @@ class Grid {
         for (let i = 0; i < _rows; i++) {
             for (let j = 0; j < _cols; j++) {
                 let cell = grid[i][j]; // get the current cell
-                cell.setNeighbor("up", this.getCell(i - 1, j, grid));
-                cell.setNeighbor("down", this.getCell(i + 1, j, grid));
-                cell.setNeighbor("left", this.getCell(i, j - 1, grid));
-                cell.setNeighbor("right", this.getCell(i, j + 1, grid));
-                cell.setNeighbor("upleft", this.getCell(i - 1, j - 1, grid));
-                cell.setNeighbor("upright", this.getCell(i - 1, j + 1, grid));
-                cell.setNeighbor("downleft", this.getCell(i + 1, j - 1, grid));
-                cell.setNeighbor("downright", this.getCell(i + 1, j + 1, grid));
+                cell.setNeighbor("up", this.getCell(i - 1, j));
+                cell.setNeighbor("down", this.getCell(i + 1, j));
+                cell.setNeighbor("left", this.getCell(i, j - 1));
+                cell.setNeighbor("right", this.getCell(i, j + 1));
+                cell.setNeighbor("upleft", this.getCell(i - 1, j - 1));
+                cell.setNeighbor("upright", this.getCell(i - 1, j + 1));
+                cell.setNeighbor("downleft", this.getCell(i + 1, j - 1));
+                cell.setNeighbor("downright", this.getCell(i + 1, j + 1));
             }
         }
 
@@ -61,13 +61,12 @@ class Grid {
      * @param row // the row
      * @param col // the column
      * @param grid // the grid of cells
-     * @returns The cell at the specified row and column or null if the cell does not exist
+     * @returns The cell at the specified row and column
      */
-    getCell(row: number, col: number, grid: Cell[][]): Cell | null {
-        if (row >= 0 && row < _rows && col >= 0 && col < _cols) {
-            return grid[row][col];
-        }
-        else {
+    getCell(row: number, col: number): Cell | null {
+        if (row >= 0 && row < this.grid.length && col >= 0 && col < (this.grid[row] ? this.grid[row].length : 0)) {
+            return this.grid[row][col];
+        } else {
             return null;
         }
     }
@@ -117,7 +116,7 @@ class Grid {
         let gridRepresentation = "";
         for (let i = 0; i < _rows; i++) {
             for (let j = 0; j < _cols; j++) {
-                const cell = this.getCell(i, j, this.grid); // Change this line
+                const cell = this.getCell(i, j); // Change this line
                 gridRepresentation += cell && cell.getStatus() ? "X" : "O";
             }
             gridRepresentation += "\n";
