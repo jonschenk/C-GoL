@@ -92,17 +92,26 @@ class Cell {
   }
 
 
+  willBeAlive() {
+    let numNeighbors = this.numNeighbors();
+
+    if (this._isAlive) {
+      return numNeighbors === 2 || numNeighbors === 3;
+    } else {
+      return numNeighbors === 3;
+    }
+  }
+
+
   /**
    * Defines whether or not the cell can live.
    */
   updateStatus() {
-    let numNeighbors = this.numNeighbors();
-
-    if (this._isAlive) {
-      this._isAlive = numNeighbors === 2 || numNeighbors === 3;
-    } 
-    else {
-      this._isAlive = numNeighbors === 3;
+    if (this._isAlive && !this.willBeAlive()) {
+      this.setStatus(false);
+    }
+    else if (!this._isAlive && this.willBeAlive()) {
+      this.setStatus(true);
     }
   }
 }

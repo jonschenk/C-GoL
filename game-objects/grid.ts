@@ -3,17 +3,10 @@
 import Cell from "./cell";
 
 class Grid {
-    private rows: number;
-    private cols: number;
+    private rows = 10;
+    private cols = 10;
 
     private grid: Cell[][];
-
-    constructor(rows: number, cols: number) {
-        this.grid = Array(rows).fill(null).map(() => Array(cols).fill(null));
-        this.rows = rows;
-        this.cols = cols;
-
-    }
 
     /**
      * Generates the grid of cells
@@ -69,8 +62,13 @@ class Grid {
      * @param grid // the grid of cells
      * @returns The cell at the specified row and column
      */
-    getCell(row: number, col: number): Cell {
-        return this.grid[row][col];
+    getCell(row: number, col: number): Cell | null {
+        if (row < 0 || row >= this.rows || col < 0 || col >= this.cols) {
+            return null;
+        }
+        else {
+            return this.grid[row][col];
+        }
     }
 
 
@@ -114,15 +112,25 @@ class Grid {
     }
 
 
-    forEachCell(action: (cell: Cell) => void) {
-        for (let i = 0; i < this.rows; i++) {
-            for (let j = 0; j < this.cols; j++) {
-                action(this.getCell(i, j));
+    /**
+     * Loops through each cell in the grid and calls the callback function
+     * 
+     * @param callback // the callback function
+     */
+    forEachCell(callback: (cell: Cell, row: number, col: number) => void): void {
+        for (let row = 0; row < this.grid.length; row++) {
+            for (let col = 0; col < this.grid[row].length; col++) {
+                callback(this.grid[row][col], row, col);
             }
         }
     }
 
 
+    /**
+     * Loops through each cell in the grid and calls the callback function
+     * 
+     * @returns The string representation of the grid
+     */
     toString(): string {
         let gridRepresentation = "";
         for (let i = 0; i < this.rows; i++) {

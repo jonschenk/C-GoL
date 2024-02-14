@@ -3,10 +3,10 @@
 import Grid from "./game-objects/grid";
 
 class Game {
-    private gameSpeed = 2000; // default game speed
+    private gameSpeed = 500; // default game speed
     constructor() {
         // Create a new grid
-        let grid: Grid = new Grid(10, 10);
+        let grid: Grid = new Grid();
         
         // Generate the grid
         grid.generate();
@@ -34,10 +34,10 @@ class Game {
 
         const squareSize = Math.floor(gridDiv.clientWidth / cols) / 5;
 
-        for (let i = 0; i < rows - 1; i++) {
+        for (let i = 0; i < rows; i++) {
             const row = document.createElement('tr');
 
-            for (let j = 0; j < cols - 1; j++) {
+            for (let j = 0; j < cols; j++) {
                 const cell = document.createElement('td');
 
                 // Style the cell as a square
