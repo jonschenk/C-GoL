@@ -2,8 +2,10 @@
 
 import Grid from "./game-objects/grid";
 
+let isDragging = false;
+
 class Game {
-    private gameSpeed = 2000; // default game speed
+    private gameSpeed = 100; // default game speed
     constructor() {
         // Create a new grid
         let grid: Grid = new Grid();
@@ -16,7 +18,7 @@ class Game {
     }
     
 
-    updateGrid(grid: Grid) {
+    async updateGrid(grid: Grid) {
         let rows = grid.getRows();
         let cols = grid.getCols();
 
@@ -29,7 +31,7 @@ class Game {
         const table = document.createElement('table');
         table.style.borderCollapse = 'collapse';
 
-        const squareSize = Math.floor(gridDiv.clientWidth / cols) / 5;
+        const squareSize = Math.floor(gridDiv.clientWidth / cols) / 2;
 
         for (let i = 0; i < rows; i++) {
             const row = document.createElement('tr');
@@ -44,6 +46,26 @@ class Game {
 
                 // Set the cell's background color based on its status
                 cell.style.backgroundColor = grid.getCell(i, j)?.getStatus() ? 'black' : 'white';
+
+
+                cell.addEventListener('mousedown', (event) => {
+                    isDragging = true;
+                    // Existing code to handle a cell click
+                    grid.getCell(i, j)?.toggleState();
+                    cell.style.backgroundColor = grid.getCell(i, j)?.getStatus() ? 'black' : 'white';
+                });
+
+                cell.addEventListener('mousemove', (event) => {
+                    if (isDragging) {
+                        // Existing code to handle a cell click
+                        grid.getCell(i, j)?.toggleState();
+                        cell.style.backgroundColor = grid.getCell(i, j)?.getStatus() ? 'black' : 'white';
+                    }
+                });
+
+                cell.addEventListener('mouseup', () => {
+                    isDragging = false;
+                });
 
                 cell.addEventListener('click', () => {
                     grid.getCell(i, j)?.toggleState();

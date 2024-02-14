@@ -3,8 +3,8 @@
 import Cell from "./cell";
 
 class Grid {
-    private rows = 10;
-    private cols = 10;
+    private rows = 50;
+    private cols = 100;
 
     private grid: Cell[][];
 
@@ -24,6 +24,12 @@ class Grid {
     }
 
 
+    /**
+     * Gets the cell's neighbors
+     * 
+     * @param cell The given cell
+     * @returns an array of neighboring cells
+     */
     getNeighbors(cell: Cell): Cell[] {
         let neighbors: Cell[] = [];
         let row = this.getRow(cell);
@@ -33,10 +39,15 @@ class Grid {
         for (let i = -1; i <= 1; i++) {
             // loop through the columns
             for (let j = -1; j <= 1; j++) {
+                // if the cell is the current cell, skip it
                 if (i === 0 && j === 0) {
                     continue;
                 }
+
+                // get the neighbor
                 let neighbor = this.getCell(row + i, col + j);
+
+                // if the neighbor is valid, add it to the list of neighbors
                 if (neighbor) {
                     neighbors.push(neighbor);
                 }
