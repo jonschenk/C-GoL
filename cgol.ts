@@ -31,10 +31,10 @@ class Game {
 
         const squareSize = Math.floor(gridDiv.clientWidth / cols) / 5;
 
-        for (let i = 0; i < rows - 1; i++) {
+        for (let i = 0; i < rows; i++) {
             const row = document.createElement('tr');
 
-            for (let j = 0; j < cols - 1; j++) {
+            for (let j = 0; j < cols; j++) {
                 const cell = document.createElement('td');
 
                 // Style the cell as a square
@@ -49,14 +49,36 @@ class Game {
                     grid.getCell(i, j)?.toggleState();
                     cell.style.backgroundColor = grid.getCell(i, j)?.getStatus() ? 'black' : 'white';
                 });
+
                 row.appendChild(cell);
             }
-
             table.appendChild(row);
         }
 
-
+        this.updateCells(grid);
         gridDiv.appendChild(table);
+    }
+
+
+    updateCells(grid: Grid) {
+        let rows = grid.getRows();
+        let cols = grid.getCols();
+
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j< cols; j++) {
+                let cell = grid.getCell(i,j);
+
+                cell?.willBeAlive(grid);
+            }
+        }
+
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j< cols; j++) {
+                let cell = grid.getCell(i,j);
+
+                cell?.updateStatus(grid);
+            }
+        }
     }
 
 
@@ -69,9 +91,6 @@ class Game {
         cell?.setStatus(true);
         cell1?.setStatus(true);
         cell2?.setStatus(true);
-        let num = cell3?.numNeighbors();
-
-        console.log(num);
 
         console.log(cell3?.getStatus());
     }

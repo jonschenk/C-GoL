@@ -21,36 +21,88 @@ class Grid {
                 this.grid[i][j] = new Cell(); // create a new cell and add it to the grid
             }
         }
+    }
 
-        this.assignNeighbors(this.grid); // assign the neighbors to each cell
+
+    getNeighbors(cell: Cell): Cell[] {
+        let neighbors: Cell[] = [];
+        let row = this.getRow(cell);
+        let col = this.getCol(cell);
+
+        // loop through the rows
+        for (let i = -1; i <= 1; i++) {
+            // loop through the columns
+            for (let j = -1; j <= 1; j++) {
+                if (i === 0 && j === 0) {
+                    continue;
+                }
+                let neighbor = this.getCell(row + i, col + j);
+                if (neighbor) {
+                    neighbors.push(neighbor);
+                }
+            }
+        }
+
+        return neighbors;
+    }
+
+
+    getCol(cell: Cell): number {
+        let col = -1;
+        for (let i = 0; i < this.rows; i++) {
+            for (let j = 0; j < this.cols; j++) {
+                if (this.grid[i][j] === cell) {
+                    col = j;
+                }
+            }
+        }
+
+        return col;
+    }
+
+
+    getRow(cell: Cell): number {
+        let row = -1;
+        for (let i = 0; i < this.rows; i++) {
+            for (let j = 0; j < this.cols; j++) {
+                if (this.grid[i][j] === cell) {
+                    row = i;
+                }
+            }
+        }
+
+        return row;
     }
 
 
     /**
-     * Assigns the neighbors to each cell
+     * Counts currently alive neighbors surrounding the cell.
      * 
-     * @param {*} grid The grid of cells
-     * 
-     * @returns The grid of cells with neighbors assigned
+     * @param {*} row The row of the cell
+     * @param {*} col The column of the cell
+     * @returns {number} The number of living neighbors
      */
-    assignNeighbors(grid: Cell[][]): Cell[][] {
+    numNeighborsAlive(row: number, col: number): number {
+        let count = 0;
+        let cell = this.getCell(row, col);
 
-        // loop through the rows
-        for (let i = 0; i < this.rows; i++) {
-            for (let j = 0; j < this.cols; j++) {
-                let cell = grid[i][j]; // get the current cell
-                cell.setNeighbor("up", this.getCell(i - 1, j));
-                cell.setNeighbor("down", this.getCell(i + 1, j));
-                cell.setNeighbor("left", this.getCell(i, j - 1));
-                cell.setNeighbor("right", this.getCell(i, j + 1));
-                cell.setNeighbor("upleft", this.getCell(i - 1, j - 1));
-                cell.setNeighbor("upright", this.getCell(i - 1, j + 1));
-                cell.setNeighbor("downleft", this.getCell(i + 1, j - 1));
-                cell.setNeighbor("downright", this.getCell(i + 1, j + 1));
-            }
+        if (!cell) {
+            return 0;
         }
 
-        return grid;
+        let neighbors = this.getNeighbors(cell);
+        for (let neighbor of neighbors) {
+            if (neighbor.getStatus()) {
+                count++;
+            }
+        }
+    
+        return count;
+    }
+
+
+    isInBounds(row: number, col: number): boolean {
+        return row >= 0 && row < this.rows && col >= 0 && col < this.cols;
     }
 
 
