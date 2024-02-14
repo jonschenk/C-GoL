@@ -93,14 +93,28 @@ class Cell {
 
 
   willBeAlive() {
-    let numNeighbors = this.numNeighbors();
+    let aliveNeighbors = this.numNeighbors();
 
-    if (this._isAlive) {
-      return numNeighbors === 2 || numNeighbors === 3;
+    if (this.getStatus()) {
+        // The cell is currently alive
+        if (aliveNeighbors < 2 || aliveNeighbors > 3) {
+            // The cell dies due to underpopulation or overpopulation
+            return false;
+        } else {
+            // The cell stays alive
+            return true;
+        }
     } else {
-      return numNeighbors === 3;
+        // The cell is currently dead
+        if (aliveNeighbors === 3) {
+            // The cell becomes alive due to reproduction
+            return true;
+        } else {
+            // The cell stays dead
+            return false;
+        }
     }
-  }
+}
 
 
   /**

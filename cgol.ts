@@ -3,7 +3,7 @@
 import Grid from "./game-objects/grid";
 
 class Game {
-    private gameSpeed = 500; // default game speed
+    private gameSpeed = 2000; // default game speed
     constructor() {
         // Create a new grid
         let grid: Grid = new Grid();
@@ -23,6 +23,8 @@ class Game {
         let rows = grid.getRows();
         let cols = grid.getCols();
 
+        this.updateCells(grid);
+        
         const gridDiv = document.getElementById("grid");
         if (!gridDiv) return;
 
@@ -37,7 +39,7 @@ class Game {
         for (let i = 0; i < rows; i++) {
             const row = document.createElement('tr');
 
-            for (let j = 0; j < cols; j++) {
+            for (let j = 0; j < cols - 1; j++) {
                 const cell = document.createElement('td');
 
                 // Style the cell as a square
@@ -47,7 +49,6 @@ class Game {
 
                 // Set the cell's background color based on its status
                 cell.style.backgroundColor = grid.getCell(i, j)?.getStatus() ? 'black' : 'white';
-                grid.getCell(i, j)?.updateStatus();
 
                 cell.addEventListener('click', () => {
                     grid.getCell(i, j)?.toggleState();
@@ -63,6 +64,26 @@ class Game {
 
 
         gridDiv.appendChild(table);
+    }
+
+
+    updateCells(grid: Grid) {
+        const nextStatus: boolean[][] = [];
+        for (let i = 0; i < grid.getRows(); i++) {
+            nextStatus[i] = [];
+            for (let j = 0; j < grid.getCols(); j++) {
+                nextStatus[i][j] = grid.getCell(i, j)?.willBeAlive() ?? false;
+            }
+        }
+
+        // Then, update all cells
+        for (let i = 0; i < grid.getRows(); i++) {
+            for (let j = 0; j < grid.getCols(); j++) {
+                if (typeof nextStatus[i][j] !== 'undefined') {
+                    grid.getCell(i, j)?.setStatus(nextStatus[i][j]);
+                }
+            }
+        }
     }
 
 
