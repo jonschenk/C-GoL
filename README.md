@@ -19,10 +19,11 @@ This project represents several firsts for me:
 
 ## TODO:
 
-- Implement gameplay logic
+- ~~Implement gameplay logic~~
 - ~~Gameplay clock~~
 - ~~Toggleable cells~~
 - ~~Create game GUI~~
-- Increase grid size
+- ~~Increase grid size~~
+- ~~Drag click functionality~~
 - Add buttons for modifying parameters
 - Make pretty
