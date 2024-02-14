@@ -12,10 +12,7 @@ class Game {
         grid.generate();
         this.testing(grid);
         this.updateGrid(grid);
-        setInterval(() => {
-            grid.forEachCell((cell) => cell.updateStatus());
-            this.updateGrid(grid);
-        }, this.gameSpeed);
+        setInterval(() => this.updateGrid(grid), this.gameSpeed);
     }
     
 
@@ -23,8 +20,6 @@ class Game {
         let rows = grid.getRows();
         let cols = grid.getCols();
 
-        this.updateCells(grid);
-        
         const gridDiv = document.getElementById("grid");
         if (!gridDiv) return;
 
@@ -36,7 +31,7 @@ class Game {
 
         const squareSize = Math.floor(gridDiv.clientWidth / cols) / 5;
 
-        for (let i = 0; i < rows; i++) {
+        for (let i = 0; i < rows - 1; i++) {
             const row = document.createElement('tr');
 
             for (let j = 0; j < cols - 1; j++) {
@@ -59,31 +54,9 @@ class Game {
 
             table.appendChild(row);
         }
-        let cell3 = grid?.getCell(3, 3); // TEMP
-        console.log(cell3?.getStatus()); // TEMP
 
 
         gridDiv.appendChild(table);
-    }
-
-
-    updateCells(grid: Grid) {
-        const nextStatus: boolean[][] = [];
-        for (let i = 0; i < grid.getRows(); i++) {
-            nextStatus[i] = [];
-            for (let j = 0; j < grid.getCols(); j++) {
-                nextStatus[i][j] = grid.getCell(i, j)?.willBeAlive() ?? false;
-            }
-        }
-
-        // Then, update all cells
-        for (let i = 0; i < grid.getRows(); i++) {
-            for (let j = 0; j < grid.getCols(); j++) {
-                if (typeof nextStatus[i][j] !== 'undefined') {
-                    grid.getCell(i, j)?.setStatus(nextStatus[i][j]);
-                }
-            }
-        }
     }
 
 
