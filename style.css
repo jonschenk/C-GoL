@@ -46,16 +46,34 @@ body {
 
 .buttons .toggle-start {
   display: flex;
-  padding: 1.5%;
-  margin-top: -25px;
+  padding: .5%;
+  margin-top: -30px;
   font-size: 200%;
-  background-color: #333;
+  background-color: #7cc79e;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.buttons .toggle-start .play {
-  size: 10%;
+.buttons .clear {
+  display: flex;
+  padding: .5%;
+  margin-top: -30px;
+  margin-left: 10px;
+  font-size: 200%;
+  background-color: #7cc79e;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.play {
+  width: 40px;
+  filter: invert(100%);
+}
+
+.clear {
+  width: 60px;
 }

@@ -17,21 +17,26 @@ class Game {
         grid.generate();
         this.updateGrid(grid);
 
+        const clearButton = document.getElementById('clear');
+
+        if (clearButton) {
+            clearButton.addEventListener('click', () => {
+                this.clear(grid);
+                this.updateGrid(grid);
+            });
+        }
+
         // Use button toggle-start-pause to start and pause the game
         const toggleStartPause = document.getElementById('toggle-start-pause');
+        const buttonIcon = document.getElementById("play");
+
 
         if (toggleStartPause) {
             toggleStartPause.addEventListener('click', () => {
-                if (this.intervalId) {
-                    // If the game is running, pause it
-                    clearInterval(this.intervalId);
-                    this.intervalId = undefined;
-                    this.gameSpeed = this.DEFAULT_SPEED; // Reset the game speed
-                } else {
-                    // If the game is not running, start it
-                    this.gameSpeed = 0; // Set the game speed to 0
-                    this.intervalId = setInterval(() => this.updateGrid(grid), this.gameSpeed);
-                }
+
+                buttonIcon?.setAttribute("src", "assets/pause.png")
+
+                this.toggleGameState(grid);
             });
         }
     }
@@ -69,15 +74,18 @@ class Game {
 
                 cell.addEventListener('mousedown', (event) => {
                     isDragging = true;
-                    // Existing code to handle a cell click
-                    grid.getCell(i, j)?.toggleState();
-                    cell.style.backgroundColor = grid.getCell(i, j)?.getStatus() ? 'black' : 'white';
                 });
 
                 cell.addEventListener('mousemove', (event) => {
                     if (isDragging) {
                         // Existing code to handle a cell click
-                        grid.getCell(i, j)?.toggleState();
+                        if (grid.getCell(i, j)?.getStatus() === false) {
+                            grid.getCell(i, j)?.setStatus(true);
+                        }
+                        else {
+                            grid.getCell(i, j)?.setStatus(false);
+                        }
+
                         cell.style.backgroundColor = grid.getCell(i, j)?.getStatus() ? 'black' : 'white';
                     }
                 });
@@ -123,32 +131,32 @@ class Game {
     }
 
 
-    toggleStartPause(grid: Grid) {
-        let toggleStartPause = document.getElementById('toggle-start-pause');
-        if (toggleStartPause) {
-            if (toggleStartPause.innerHTML === 'Start') {
-                toggleStartPause.innerHTML = 'Pause';
-                this.gameSpeed = 100;
-            } else {
-                toggleStartPause.innerHTML = 'Start';
-                this.gameSpeed = 0;
+    toggleGameState(grid: Grid) {
+        if (this.intervalId) {
+            // If the game is running, pause it
+            clearInterval(this.intervalId);
+            this.intervalId = undefined;
+            this.gameSpeed = this.DEFAULT_SPEED; // Reset the game speed
+        } else {
+            // If the game is not running, start it
+            this.gameSpeed = 0; // Set the game speed to 0
+            this.intervalId = setInterval(() => this.updateGrid(grid), this.gameSpeed);
+        }
+    }
+
+    clear(grid: Grid) {
+        let rows = grid.getRows();
+        let cols = grid.getCols();
+
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j< cols; j++) {
+                let cell = grid.getCell(i,j);
+
+                cell?.setStatus(false);
             }
         }
     }
 
-
-    testing(grid: Grid | null) {
-        let cell = grid?.getCell(2, 2);
-        let cell1 = grid?.getCell(3, 2);
-        let cell2 = grid?.getCell(4, 2);
-        let cell3 = grid?.getCell(3, 3);
-        
-        cell?.setStatus(true);
-        cell1?.setStatus(true);
-        cell2?.setStatus(true);
-
-        console.log(cell3?.getStatus());
-    }
 }
 
 new Game();
