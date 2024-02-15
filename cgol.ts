@@ -5,16 +5,35 @@ import Grid from "./game-objects/grid";
 let isDragging = false;
 
 class Game {
-    private gameSpeed = 100; // default game speed
+    private DEFAULT_SPEED = 100; // default game speed
+    private gameSpeed = this.DEFAULT_SPEED; // game speed
+    private intervalId?: any;
+
     constructor() {
         // Create a new grid
         let grid: Grid = new Grid();
         
         // Generate the grid
         grid.generate();
-        this.testing(grid);
         this.updateGrid(grid);
-        setInterval(() => this.updateGrid(grid), this.gameSpeed);
+
+        // Use button toggle-start-pause to start and pause the game
+        const toggleStartPause = document.getElementById('toggle-start-pause');
+
+        if (toggleStartPause) {
+            toggleStartPause.addEventListener('click', () => {
+                if (this.intervalId) {
+                    // If the game is running, pause it
+                    clearInterval(this.intervalId);
+                    this.intervalId = undefined;
+                    this.gameSpeed = this.DEFAULT_SPEED; // Reset the game speed
+                } else {
+                    // If the game is not running, start it
+                    this.gameSpeed = 0; // Set the game speed to 0
+                    this.intervalId = setInterval(() => this.updateGrid(grid), this.gameSpeed);
+                }
+            });
+        }
     }
     
 
@@ -99,6 +118,20 @@ class Game {
                 let cell = grid.getCell(i,j);
 
                 cell?.updateStatus(grid);
+            }
+        }
+    }
+
+
+    toggleStartPause(grid: Grid) {
+        let toggleStartPause = document.getElementById('toggle-start-pause');
+        if (toggleStartPause) {
+            if (toggleStartPause.innerHTML === 'Start') {
+                toggleStartPause.innerHTML = 'Pause';
+                this.gameSpeed = 100;
+            } else {
+                toggleStartPause.innerHTML = 'Start';
+                this.gameSpeed = 0;
             }
         }
     }

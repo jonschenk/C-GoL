@@ -36,3 +36,26 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2.5%;
+}
+
+.buttons .toggle-start {
+  display: flex;
+  padding: 1.5%;
+  margin-top: -25px;
+  font-size: 200%;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.buttons .toggle-start .play {
+  size: 10%;
+}
