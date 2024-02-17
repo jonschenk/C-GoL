@@ -99,7 +99,7 @@ class Cell {
    * 
    * @param grid The grid of cells
    */
-  willBeAlive(grid: Grid) {
+  willBeAlive(grid: Grid): boolean {
     let result = false;
 
     let aliveNeighbors = grid.numNeighborsAlive(this.row, this.col);
@@ -112,6 +112,8 @@ class Cell {
     }
 
     this.willLive = result;
+
+    return result;
   }
 
 

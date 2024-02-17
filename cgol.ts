@@ -106,19 +106,23 @@ class Game {
         for (let i = 0; i < rows; i++) {
             for (let j = 0; j< cols; j++) {
                 let cell = grid.getCell(i,j);
-
-                if (cell?.willBeAlive(grid)) {
-                    willLive.push(cell);
+                if (cell) {
+                    if (cell.willBeAlive(grid)) {
+                        willLive.push(cell);
+                    }
+                    else {
+                        willDie.push(cell);
+                    }
                 }
             }
         }
 
-        for (let i = 0; i < rows; i++) {
-            for (let j = 0; j< cols; j++) {
-                let cell = grid.getCell(i,j);
+        for (let cell of willLive) {
+            cell.setStatus(true);
+        }
 
-                cell?.updateStatus(grid);
-            }
+        for (let cell of willDie) {
+            cell.setStatus(false);
         }
     }
 
