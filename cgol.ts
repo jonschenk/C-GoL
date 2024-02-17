@@ -6,42 +6,27 @@ let isDragging = false;
 
 class Game {
     private DEFAULT_SPEED = 100; // default game speed
+    private CHANCE = 0.8 // chance of a cell being alive in randomizer
     private gameSpeed = this.DEFAULT_SPEED; // game speed
     private intervalId?: any;
 
     constructor() {
         // Create a new grid
         let grid: Grid = new Grid();
-        
+
         // Generate the grid
         grid.generate();
         this.updateGrid(grid);
 
-        const clearButton = document.getElementById('clear');
-
-        if (clearButton) {
-            clearButton.addEventListener('click', () => {
-                this.clear(grid);
-                this.updateGrid(grid);
-            });
-        }
-
-        // Use button toggle-start-pause to start and pause the game
-        const toggleStartPause = document.getElementById('toggle-start-pause');
-        const buttonIcon = document.getElementById("play");
-
-
-        if (toggleStartPause) {
-            toggleStartPause.addEventListener('click', () => {
-
-                buttonIcon?.setAttribute("src", "assets/pause.png")
-
-                this.toggleGameState(grid);
-            });
-        }
+        this.buttons(grid);
     }
     
 
+    /**
+     * Update the grid
+     * 
+     * @param grid The grid to update
+     */
     async updateGrid(grid: Grid) {
         let rows = grid.getRows();
         let cols = grid.getCols();
@@ -79,14 +64,9 @@ class Game {
                 cell.addEventListener('mousemove', (event) => {
                     if (isDragging) {
                         // Existing code to handle a cell click
-                        if (grid.getCell(i, j)?.getStatus() === false) {
-                            grid.getCell(i, j)?.setStatus(true);
-                        }
-                        else {
-                            grid.getCell(i, j)?.setStatus(false);
-                        }
+                        grid.getCell(i, j)?.setStatus(true);
 
-                        cell.style.backgroundColor = grid.getCell(i, j)?.getStatus() ? 'black' : 'white';
+                        cell.style.backgroundColor = 'black';
                     }
                 });
 
@@ -109,6 +89,11 @@ class Game {
     }
 
 
+    /**
+     * Update the cells of the grid
+     * 
+     * @param grid The grid to update the cells of
+     */
     updateCells(grid: Grid) {
         let rows = grid.getRows();
         let cols = grid.getCols();
@@ -131,6 +116,11 @@ class Game {
     }
 
 
+    /**
+     * Toggle the game state of the grid
+     * 
+     * @param grid The grid to toggle the game state of
+     */
     toggleGameState(grid: Grid) {
         if (this.intervalId) {
             // If the game is running, pause it
@@ -144,6 +134,12 @@ class Game {
         }
     }
 
+
+    /**
+     * Clear the grid
+     * 
+     * @param grid The grid to clear
+     */
     clear(grid: Grid) {
         let rows = grid.getRows();
         let cols = grid.getCols();
@@ -154,6 +150,57 @@ class Game {
 
                 cell?.setStatus(false);
             }
+        }
+    }
+
+
+    /**
+     * Randomizes the cells on the grid.
+     * 
+     * @param The grid to randomize.
+     */
+    randomize(grid: Grid) {
+        this.clear(grid);
+        let rows = grid.getRows();
+        let cols = grid.getCols();
+
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j< cols; j++) {
+                let cell = grid.getCell(i,j);
+
+                cell?.setStatus(Math.random() > this.CHANCE);
+            }
+        }
+    }
+
+
+    /**
+     * Buttons to control the game
+     */
+    buttons(grid: Grid) {
+        const toggleStartPause = document.getElementById('toggle-start-pause');
+        const clearButton = document.getElementById('clear');
+        const randomizeButton = document.getElementById('randomize');
+
+        if (clearButton) {
+            clearButton.addEventListener('click', () => {
+                this.clear(grid);
+                this.updateGrid(grid);
+            });
+        }
+
+        if (randomizeButton) {
+            randomizeButton.addEventListener('click', () => {
+                this.randomize(grid);
+                this.updateGrid(grid);
+            });
+        }
+
+        if (toggleStartPause) {
+            toggleStartPause.addEventListener('click', () => {
+
+                this.toggleGameState(grid);
+            });
         }
     }
 

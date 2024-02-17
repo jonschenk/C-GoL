@@ -49,7 +49,7 @@ body {
   padding: .5%;
   margin-top: -30px;
   font-size: 200%;
-  background-color: #7cc79e;
+  background-color: #389226;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -62,7 +62,20 @@ body {
   margin-top: -30px;
   margin-left: 10px;
   font-size: 200%;
-  background-color: #7cc79e;
+  background-color: #2b8fc9;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.buttons .randomize {
+  display: flex;
+  padding: .5%;
+  margin-top: -30px;
+  margin-left: 10px;
+  font-size: 200%;
+  background-color: #a269d1;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -75,5 +88,9 @@ body {
 }
 
 .clear {
+  width: 60px;
+}
+
+.randomize {
   width: 60px;
 }
