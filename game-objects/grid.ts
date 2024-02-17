@@ -3,8 +3,8 @@
 import Cell from "./cell";
 
 class Grid {
-    private rows = 50;
-    private cols = 100;
+    private rows = 33;
+    private cols = 66;
 
     private grid: Cell[][];
 

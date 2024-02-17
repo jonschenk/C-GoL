@@ -4,8 +4,11 @@ import Grid from "./game-objects/grid";
 
 let isDragging = false;
 
+let colora = 'white';
+let colorb = 'transparent';
+
 class Game {
-    private DEFAULT_SPEED = 100; // default game speed
+    private DEFAULT_SPEED = 1000; // default game speed
     private CHANCE = 0.8 // chance of a cell being alive in randomizer
     private gameSpeed = this.DEFAULT_SPEED; // game speed
     private intervalId?: any;
@@ -17,7 +20,6 @@ class Game {
         // Generate the grid
         grid.generate();
         this.updateGrid(grid);
-
         this.buttons(grid);
     }
     
@@ -51,10 +53,10 @@ class Game {
                 // Style the cell as a square
                 cell.style.width = `${squareSize}px`;
                 cell.style.height = `${squareSize}px`;
-                cell.style.border = '1px solid black';
+                cell.style.border = '1px solid #242424';
 
                 // Set the cell's background color based on its status
-                cell.style.backgroundColor = grid.getCell(i, j)?.getStatus() ? 'black' : 'white';
+                cell.style.backgroundColor = grid.getCell(i, j)?.getStatus() ? colora : colorb;
 
 
                 cell.addEventListener('mousedown', (event) => {
@@ -66,7 +68,7 @@ class Game {
                         // Existing code to handle a cell click
                         grid.getCell(i, j)?.setStatus(true);
 
-                        cell.style.backgroundColor = 'black';
+                        cell.style.backgroundColor = colora;
                     }
                 });
 
@@ -76,7 +78,7 @@ class Game {
 
                 cell.addEventListener('click', () => {
                     grid.getCell(i, j)?.toggleState();
-                    cell.style.backgroundColor = grid.getCell(i, j)?.getStatus() ? 'black' : 'white';
+                    cell.style.backgroundColor = grid.getCell(i, j)?.getStatus() ? colora : colorb;
                 });
 
                 row.appendChild(cell);
@@ -203,7 +205,6 @@ class Game {
             });
         }
     }
-
 }
 
 new Game();

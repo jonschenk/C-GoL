@@ -15,15 +15,4 @@ This project represents several firsts for me:
 ## Project Timeline
 
 - Project start date: 02-12-2024
-- Project end date: Still in progress
-
-## TODO:
-
-- ~~Implement gameplay logic~~
-- ~~Gameplay clock~~
-- ~~Toggleable cells~~
-- ~~Create game GUI~~
-- ~~Increase grid size~~
-- ~~Drag click functionality~~
-- Add buttons for modifying parameters
-- Make pretty
+- Project end date: 02-17-2024

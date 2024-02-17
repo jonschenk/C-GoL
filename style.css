@@ -1,8 +1,11 @@
 html {
   font-size: 50%;
-  font-family: 'Roboto', sans-serif;
-  color: #333;
+  color: #000000;
   background-color: #f4f4f4;
+
+  height: 100%;
+  margin: 0;
+  background: linear-gradient(to bottom, rgb(0, 0, 0), rgb(34, 34, 34));
 }
 
 body {
@@ -14,24 +17,24 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #333;
+  background-color: #000000;
   color: #fff;
 }
 
 .header h1 {
   font-size: 500%;
-  letter-spacing: .5rem;
+  letter-spacing: 3rem;
   margin-bottom: 1%;
 }
 
 .header p {
-  font-size: 300%;
+  font-size: 200%;
   font-style: italic;
-  margin-top: 0px;
+  margin-top: -10px;
 }
 
 .grid {
-  padding-top: 2.5%;
+  padding-top: 1%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,7 +52,7 @@ body {
   padding: .5%;
   margin-top: -30px;
   font-size: 200%;
-  background-color: #389226;
+  background-color: rgb(48, 48, 48);
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -62,7 +65,7 @@ body {
   margin-top: -30px;
   margin-left: 10px;
   font-size: 200%;
-  background-color: #2b8fc9;
+  background-color: rgb(48, 48, 48);
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -75,7 +78,7 @@ body {
   margin-top: -30px;
   margin-left: 10px;
   font-size: 200%;
-  background-color: #a269d1;
+  background-color: rgb(48, 48, 48);
   color: #fff;
   border: none;
   border-radius: 5px;
