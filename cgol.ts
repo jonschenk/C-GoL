@@ -1,6 +1,7 @@
 // @author: jonschenk (https://github.com/jonschenk)
 
 import Grid from "./game-objects/grid";
+import Cell from "./game-objects/cell";
 
 let isDragging = false;
 
@@ -99,12 +100,16 @@ class Game {
     updateCells(grid: Grid) {
         let rows = grid.getRows();
         let cols = grid.getCols();
+        let willLive: Cell[] = [];
+        let willDie: Cell[] = [];
 
         for (let i = 0; i < rows; i++) {
             for (let j = 0; j< cols; j++) {
                 let cell = grid.getCell(i,j);
 
-                cell?.willBeAlive(grid);
+                if (cell?.willBeAlive(grid)) {
+                    willLive.push(cell);
+                }
             }
         }
 

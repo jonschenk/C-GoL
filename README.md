@@ -15,4 +15,8 @@ This project represents several firsts for me:
 ## Project Timeline
 
 - Project start date: 02-12-2024
-- Project end date: 02-17-2024
+- Project end date: in progress
+
+## TODO
+
+- fix efficiency problems

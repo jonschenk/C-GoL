@@ -3,8 +3,8 @@
 import Cell from "./cell";
 
 class Grid {
-    private rows = 33;
-    private cols = 66;
+    private rows = 60;
+    private cols = 120;
 
     private grid: Cell[][];
 
@@ -18,7 +18,7 @@ class Grid {
         for (let i = 0; i < this.rows; i++) {
             this.grid[i] = []; // initialize the row
             for (let j = 0; j < this.cols; j++) {
-                this.grid[i][j] = new Cell(); // create a new cell and add it to the grid
+                this.grid[i][j] = new Cell(i, j); // create a new cell and add it to the grid
             }
         }
     }
@@ -32,8 +32,8 @@ class Grid {
      */
     getNeighbors(cell: Cell): Cell[] {
         let neighbors: Cell[] = [];
-        let row = this.getRow(cell);
-        let col = this.getCol(cell);
+        let row = cell.getRow();
+        let col = cell.getCol();
 
         // loop through the rows
         for (let i = -1; i <= 1; i++) {
@@ -55,34 +55,6 @@ class Grid {
         }
 
         return neighbors;
-    }
-
-
-    getCol(cell: Cell): number {
-        let col = -1;
-        for (let i = 0; i < this.rows; i++) {
-            for (let j = 0; j < this.cols; j++) {
-                if (this.grid[i][j] === cell) {
-                    col = j;
-                }
-            }
-        }
-
-        return col;
-    }
-
-
-    getRow(cell: Cell): number {
-        let row = -1;
-        for (let i = 0; i < this.rows; i++) {
-            for (let j = 0; j < this.cols; j++) {
-                if (this.grid[i][j] === cell) {
-                    row = i;
-                }
-            }
-        }
-
-        return row;
     }
 
 
@@ -172,6 +144,23 @@ class Grid {
      */
     setCols(cols: number) {
         this.cols = cols;
+    }
+
+
+    /**
+     * Gets the number of living cells
+     * 
+     * @returns The number of living cells
+     */
+    getAliveCells(): Cell[] {
+        let aliveCells: Cell[] = [];
+        this.forEachCell((cell: Cell) => {
+            if (cell.getStatus()) {
+                aliveCells.push(cell);
+            }
+        });
+
+        return aliveCells;
     }
 
 
